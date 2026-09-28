@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Permanent+Marker&family=Kalam:wght@300;400;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --paper: #f5f0e8;
+  --ink: #2c1810;
+  --brick: #8b2020;
+  --burnt: #c4511a;
+  --cream: #fdf6e3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1a0a00;
+  font-family: 'Kalam', cursive;
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* Paper texture overlay */
+.paper-texture {
+  position: relative;
+}
+.paper-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+/* Torn paper edge effect */
+.torn-top {
+  clip-path: polygon(
+    0% 8%, 3% 2%, 6% 7%, 10% 1%, 14% 6%, 18% 0%, 22% 5%, 26% 1%,
+    30% 7%, 35% 2%, 39% 8%, 43% 1%, 47% 6%, 52% 0%, 56% 5%, 61% 1%,
+    65% 7%, 69% 2%, 73% 8%, 77% 1%, 81% 6%, 85% 2%, 89% 7%, 93% 1%,
+    97% 5%, 100% 2%, 100% 100%, 0% 100%
+  );
+}
+
+.torn-bottom {
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 92%, 97% 98%, 93% 94%, 89% 100%, 85% 95%,
+    81% 99%, 77% 93%, 73% 98%, 69% 93%, 65% 99%, 61% 94%, 56% 100%,
+    52% 95%, 47% 99%, 43% 93%, 39% 98%, 35% 93%, 30% 99%, 26% 94%,
+    22% 100%, 18% 95%, 14% 99%, 10% 93%, 6% 98%, 3% 93%, 0% 98%
+  );
+}
+
+/* Washi tape */
+.washi-tape {
+  position: relative;
+}
+.washi-tape::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 80px;
+  height: 20px;
+  background: rgba(255, 200, 100, 0.6);
+  border-radius: 2px;
+  z-index: 10;
+}
+
+/* Polaroid card */
+.polaroid {
+  background: white;
+  padding: 12px 12px 40px 12px;
+  box-shadow: 2px 4px 12px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.15);
+}
+
+/* Star sticker animation - continuous rotation + gentle twinkle */
+@keyframes starContinuousSpin {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(0.92) rotate(180deg); }
+  100% { transform: scale(1) rotate(360deg); }
+}
+
+.star-sticker {
+  display: inline-block;
+  transform-origin: center center;
+  animation: starContinuousSpin 4.5s linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Diary open animation */
+@keyframes openDiary {
+  0% { transform: perspective(1200px) rotateY(-90deg); opacity: 0; }
+  100% { transform: perspective(1200px) rotateY(0deg); opacity: 1; }
+}
+
+.diary-open {
+  animation: openDiary 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Heart pulse */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.2); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.15); }
+}
+
+.heart-pulse {
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+
+/* Scrapbook entry hover */
+.scrapbook-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.scrapbook-card:hover {
+  transform: translateY(-4px) rotate(0.5deg);
+  box-shadow: 6px 12px 24px rgba(0,0,0,0.35);
+}
+
+/* Handwriting lines */
+.lined-paper {
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    #c9b99a 31px,
+    #c9b99a 32px
+  );
+  background-position: 0 40px;
+  line-height: 32px;
+}
+
+/* Page flip cursor */
+.clickable-cover {
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.clickable-cover:hover {
+  transform: scale(1.02) rotate(-0.5deg);
+  filter: brightness(1.05) drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+}
+
+/* Tape strip */
+.tape {
+  display: inline-block;
+  background: rgba(255, 220, 130, 0.55);
+  padding: 2px 18px;
+  transform: rotate(-1.5deg);
+  font-size: 0.75rem;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #1a0a00; }
+::-webkit-scrollbar-thumb { background: #8b2020; border-radius: 4px; }
